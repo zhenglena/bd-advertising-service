@@ -1,0 +1,364 @@
+version: 2016-11-18
+stack:
+  name: ATACurriculumAdvertisingServiceLambdaStack
+  # Please see the following guide on how to configure credentials: https://w.amazon.com/index.php/RDE/How_do_I#Use_AWS_credentials_on_my_Mac
+  # You can use RDE placeholders https://w.amazon.com/index.php/RDE/Features/Placeholders to customize account settings
+  # and the rest of the definition file.
+
+  devAccount:
+    type: Conduit
+    roleArn: arn:aws:iam::797965885609:role/IibsAdminAccess-DO-NOT-DELETE
+
+  applications:
+    ATACurriculumAdvertisingService:
+      type: sam
+      codeURI: ../../
+      versionSet: ATACurriculumAdvertisingServiceLambda/development
+      packages:
+        ATACurriculumAdvertisingServiceLambda:
+          buildTarget: release
+          isApplicationTarget: true
+          isBatsParameter: true
+      environment:
+        variables:
+          AWS_REGION: us-west-2
+      mountPoints:
+        - sourceURI: build/RDEmounts/jq
+          destinationURI: /usr/bin/jq
+      networkMappings:
+        - name: com.amazon.atacurriculumadvertisingservicelambda
+          internalPort: 3000
+          externalPort: 80
+          # The exposed port must not overlap between RDE applications https://w.amazon.com/bin/view/RDE/Definition/#networkMappings_2
+          # exposed port format is 118[UNIT_NUMBER]
+          exposedPort: 1186
+          protocol: http
+    # Creating this second debug application so participants don't have to come into the definition and comment and
+    # uncomment the SAM_DEBUG_PORT to enable debugging
+    DebugATACurriculumAdvertisingService:
+      type: sam
+      codeURI: ../../
+      versionSet: ATACurriculumAdvertisingServiceLambda/development
+      packages:
+        ATACurriculumAdvertisingServiceLambda:
+          buildTarget: release
+          isApplicationTarget: true
+          isBatsParameter: true
+      environment:
+        variables:
+          AWS_REGION: us-west-2
+          # exposed port format is 500[UNIT_NUMBER]
+          SAM_DEBUG_PORT: "5006"
+      mountPoints:
+        - sourceURI: build/RDEmounts/jq
+          destinationURI: /usr/bin/jq
+      networkMappings:
+        - name: com.amazon.ATACurriculumAdvertisingServicelambda
+          internalPort: 3000
+          externalPort: 80
+          # The exposed port must not overlap between RDE applications https://w.amazon.com/bin/view/RDE/Definition/#networkMappings_2
+          # exposed port format is 118[UNIT_NUMBER]
+          # same as the non-debug version since we stop the current stack before each workflow
+          exposedPort: 1186
+          protocol: http
+    ATACurriculumAdvertisingServiceTests:
+      type: hydra
+      versionSet: ATACurriculumAdvertisingServiceLambda/development
+      runDefinitionURI: mounts/hydra/tests/runDefinition.json
+      codeURI: ../../
+      packages:
+        ATACurriculumAdvertisingServiceLambdaTests:
+          buildTarget: release
+          isApplicationTarget: true
+    ATACurriculumAdvertisingServiceTCTs:
+      type: hydra
+      versionSet: ATACurriculumAdvertisingServiceLambda/development
+      runDefinitionURI: mounts/hydra/tcts/runDefinition.json
+      packages:
+        ATACurriculumAdvertisingServiceTCTs:
+          majorVersion: "C2020July"
+          isApplicationTarget: true
+steps:
+  stop:
+    type: custom
+    arguments:
+      command: rde stack stop; rm -rf ./build/
+  build:
+    type: build
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingService
+        - ATACurriculumAdvertisingServiceTests
+        - ATACurriculumAdvertisingServiceTCTs
+  build-lambda:
+    type: build
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingService
+  build-debug-app:
+    type: build
+    arguments:
+      applications:
+        - DebugATACurriculumAdvertisingService
+        - ATACurriculumAdvertisingServiceTests
+        - ATACurriculumAdvertisingServiceTCTs
+  build-debug-lambda:
+    type: build
+    arguments:
+      applications:
+        - DebugATACurriculumAdvertisingService
+  deploy:
+    type: deploy
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingService
+        - ATACurriculumAdvertisingServiceTests
+        - ATACurriculumAdvertisingServiceTCTs
+  deploy-lambda:
+    type: deploy
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingService
+  deploy-debug-app:
+    type: deploy
+    arguments:
+      applications:
+        - DebugATACurriculumAdvertisingService
+        - ATACurriculumAdvertisingServiceTests
+        - ATACurriculumAdvertisingServiceTCTs
+  deploy-debug-lambda:
+    type: deploy
+    arguments:
+      applications:
+        - DebugATACurriculumAdvertisingService
+  run-all-preparedness-tests:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.preparedness.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-preparedness-test-two:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.preparedness.task2.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-mastery-test-one-loops:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.mastery.task1.loops.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-mastery-test-one-logic:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.mastery.task1.logic.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-mastery-test-two-design:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.mastery.task2.design.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-mastery-test-two:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.mastery.task2.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-mastery-test-three-part1:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.mastery.task3.part1.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  run-mastery-test-three-part2:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTCTs
+      scriptArguments: -p com.amazon.ata.advertising.service.mastery.task3.part2.*
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  hydra-test-create-content:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTests
+      scriptArguments: -p com.amazon.atacurriculumadvertisingservicelambda.createcontent
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  hydra-test-delete-content:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTests
+      scriptArguments: -p com.amazon.atacurriculumadvertisingservicelambda.deletecontent
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  hydra-test-generate-advertisement:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTests
+      scriptArguments: -p com.amazon.atacurriculumadvertisingservicelambda.generateadvertisement
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  hydra-test-add-targeting-group:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTests
+      scriptArguments: -p com.amazon.atacurriculumadvertisingservicelambda.addtargetinggroup
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  hydra-test-update-click-through-rate:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTests
+      scriptArguments: -p com.amazon.atacurriculumadvertisingservicelambda.updateclickthroughrate
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+  hydra-test-update-content:
+    type: stackExec
+    arguments:
+      applications:
+        - ATACurriculumAdvertisingServiceTests
+      scriptArguments: -p com.amazon.atacurriculumadvertisingservicelambda.updatecontent
+      scriptURI: "configuration/stack-exec/run-hydra-tests.sh"
+
+
+workflows:
+  default:
+    - stop
+    - build
+    - deploy
+  debug:
+    - stop
+    - build-debug-lambda
+    - deploy-debug-lambda
+  all-tasks:
+    - stop
+    - build
+    - deploy
+    - run-all-preparedness-tests
+    - run-mastery-test-one-logic
+    - run-mastery-test-one-loops
+    - run-mastery-test-two
+    - run-mastery-test-three-part1
+    - run-mastery-test-three-part2
+  debug-all-tasks:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-all-preparedness-tests
+    - run-mastery-test-one-logic
+    - run-mastery-test-one-loops
+    - run-mastery-test-two
+    - run-mastery-test-three-part1
+    - run-mastery-test-three-part2
+  preparedness-tasks:
+    - stop
+    - build
+    - deploy
+    - run-all-preparedness-tests
+  debug-preparedness-tasks:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-all-preparedness-tests
+  preparedness-task2:
+    - stop
+    - build
+    - deploy
+    - run-preparedness-test-two
+  debug-preparedness-task2:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-preparedness-test-two
+  mastery-tasks:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-one-logic
+    - run-mastery-test-one-loops
+    - run-mastery-test-two
+    - run-mastery-test-three-part1
+    - run-mastery-test-three-part2
+  debug-mastery-tasks:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-one-logic
+    - run-mastery-test-one-loops
+    - run-mastery-test-two
+    - run-mastery-test-three-part1
+    - run-mastery-test-three-part2
+  tct-task1-loops:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-one-loops
+  debug-task1-loops:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-one-loops
+  tct-task1-logic:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-one-logic
+  debug-task1-logic:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-one-logic
+  tct-task1:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-one-logic
+    - run-mastery-test-one-loops
+  debug-task1:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-one-logic
+    - run-mastery-test-one-loops
+  tct-task2-design:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-two-design
+  debug-task2-design:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-two-design
+  tct-task2:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-two
+  debug-task2:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-two
+  tct-task3:
+    - stop
+    - build
+    - deploy
+    - run-mastery-test-three-part1
+    - run-mastery-test-three-part2
+  debug-task3:
+    - stop
+    - build-debug-app
+    - deploy-debug-app
+    - run-mastery-test-three-part1
+    - run-mastery-test-three-part2

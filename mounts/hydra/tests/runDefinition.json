@@ -1,0 +1,27 @@
+{
+  "SchemaVersion": "1.0",
+  "SchemaType": "HydraJavaTestNG",
+  "HydraParameters": {
+    "Timeout": 900
+  },
+  "HandlerParameters": {
+    "threadCount": 5,
+    "parallel": "methods",
+    "parameters": {
+      "awsAccountId": "012345678910",
+      "domain": "Beta",
+      "realm": "us-west-2",
+      "endpointOverride": "http://com.amazon.atacurriculumadvertisingservicelambda"
+    },
+    "tests": [
+      {
+        "name": "ATACurriculumAdvertisingServiceTests",
+        "packages": [
+          {
+            "name": "package.placeholder"
+          }
+        ]
+      }
+    ]
+  }
+}
