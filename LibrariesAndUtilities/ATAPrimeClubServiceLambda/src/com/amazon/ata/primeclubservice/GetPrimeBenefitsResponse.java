@@ -1,17 +1,8 @@
 package com.amazon.ata.primeclubservice;
 
-import com.amazon.coral.annotation.Shape;
-import com.amazon.coral.annotation.Wrapper;
-import com.amazon.coral.annotation.XmlName;
-import com.amazon.coral.annotation.XmlNamespace;
 import java.util.List;
-import com.amazon.coral.annotation.*;
 import java.util.Arrays;
 
-@Shape
-@Wrapper(value={WrapperType.INPUT, WrapperType.OUTPUT})
-@XmlName(value="GetPrimeBenefitsResponse")
-@XmlNamespace(value="http://internal.amazon.com/coral/com.amazon.ata.primeclubservice/")
 public class GetPrimeBenefitsResponse implements Comparable<GetPrimeBenefitsResponse> {
 
   /**

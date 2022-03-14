@@ -1,17 +1,7 @@
 package com.amazon.ata.customerservice;
 
-import com.amazon.coral.annotation.EnumValues;
-import com.amazon.coral.annotation.Shape;
-import com.amazon.coral.annotation.Wrapper;
-import com.amazon.coral.annotation.XmlName;
-import com.amazon.coral.annotation.XmlNamespace;
-import com.amazon.coral.annotation.*;
 import java.util.Arrays;
 
-@Shape
-@XmlNamespace(value="http://internal.amazon.com/coral/com.amazon.ata.customerservice/")
-@XmlName(value="CustomerProfile")
-@Wrapper(value={WrapperType.INPUT, WrapperType.OUTPUT})
 public class CustomerProfile implements Comparable<CustomerProfile> {
 
   /**
@@ -95,7 +85,7 @@ public class CustomerProfile implements Comparable<CustomerProfile> {
   private String ageRange;
   private Boolean parent;
 
-@EnumValues(value={"AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"})
+//@EnumValues(value={"AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"})
   public String getHomeState() {
     return this.homeState;
   }
@@ -104,7 +94,7 @@ public class CustomerProfile implements Comparable<CustomerProfile> {
     this.homeState = homeState;
   }
 
-@EnumValues(value={"UNDER_18","AGE_18_TO_21","AGE_22_TO_25","AGE_26_TO_30","AGE_31_TO_35","AGE_36_TO_45","AGE_46_TO_60","OVER_60"})
+//@EnumValues(value={"UNDER_18","AGE_18_TO_21","AGE_22_TO_25","AGE_26_TO_30","AGE_31_TO_35","AGE_36_TO_45","AGE_46_TO_60","OVER_60"})
   public String getAgeRange() {
     return this.ageRange;
   }

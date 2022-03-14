@@ -2,6 +2,7 @@ package com.amazon.ata.advertising.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class TargetingPredicate {
     private TargetingPredicateType targetingPredicateType;
@@ -36,6 +37,21 @@ public class TargetingPredicate {
 
     public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TargetingPredicate that = (TargetingPredicate) o;
+        return negate == that.negate &&
+                targetingPredicateType == that.targetingPredicateType &&
+                Objects.equals(attributes, that.attributes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(targetingPredicateType, negate, attributes);
     }
 
     public TargetingPredicate(Builder builder) {

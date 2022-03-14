@@ -27,7 +27,6 @@ class TargetingGroupTranslatorTest {
         List<TargetingPredicate> targetingPredicates = Arrays.asList(new RecognizedTargetingPredicate(),
                                                                      new ParentPredicate(true));
         TargetingGroup group = new TargetingGroup(TARGETING_GROUP_ID, CONTENT_ID, CLICK_THROUGH_RATE, targetingPredicates);
-
         // WHEN
         com.amazon.ata.advertising.service.TargetingGroup coralShape = TargetingGroupTranslator.toCoral(group);
 
@@ -47,6 +46,8 @@ class TargetingGroupTranslatorTest {
                 .withTargetingPredicateType(TargetingPredicateType.PARENT)
                 .build();
         assertEquals(2, coralShape.getTargetingPredicates().size());
+        System.out.println(coralShape.getTargetingPredicates());
+        System.out.println(recognizedPredicate);
         assertTrue(coralShape.getTargetingPredicates().contains(recognizedPredicate));
         assertTrue(coralShape.getTargetingPredicates().contains(parentPredicate));
     }

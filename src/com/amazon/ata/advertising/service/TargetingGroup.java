@@ -50,6 +50,8 @@ public class TargetingGroup {
     public TargetingGroup(Builder builder) {
         this.contentId = builder.contentId;
         this.targetingPredicates = builder.targetingPredicates;
+        this.targetingGroupId = builder.targetingGroupId;
+        this.clickThroughRate = builder.clickThroughRate;
     }
 
     public static Builder builder() {return new Builder();}

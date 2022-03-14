@@ -32,6 +32,7 @@ public class UpdateContentResponse {
 
     public UpdateContentResponse(Builder builder) {
         this.targetingGroups = builder.targetingGroups;
+        this.advertisingContent = builder.advertisingContent;
     }
 
     public static Builder builder() {return new Builder();}

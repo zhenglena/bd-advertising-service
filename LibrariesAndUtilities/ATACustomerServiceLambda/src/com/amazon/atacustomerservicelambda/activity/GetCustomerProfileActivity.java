@@ -6,13 +6,14 @@ import com.amazon.ata.customerservice.GetCustomerProfileRequest;
 import com.amazon.ata.customerservice.GetCustomerProfileResponse;
 import com.amazon.ata.customerservice.InvalidParameterException;
 import com.amazon.ata.customerservice.State;
-import com.amazon.bones.lambdarouter.LambdaActivityBase;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import javax.inject.Inject;
 
-public class GetCustomerProfileActivity extends LambdaActivityBase<GetCustomerProfileRequest, GetCustomerProfileResponse> {
+public class GetCustomerProfileActivity implements RequestHandler<GetCustomerProfileRequest, GetCustomerProfileResponse> {
 
     @VisibleForTesting
     protected static final long SLEEP_MS = 200;
@@ -70,11 +71,11 @@ public class GetCustomerProfileActivity extends LambdaActivityBase<GetCustomerPr
 
     @Inject
     public GetCustomerProfileActivity() {
-        super(GetCustomerProfileRequest.class);
+
     }
 
     @Override
-    public GetCustomerProfileResponse handleRequest(GetCustomerProfileRequest request) {
+    public GetCustomerProfileResponse handleRequest(GetCustomerProfileRequest request, Context context) {
         try {
             Thread.sleep(SLEEP_MS);
         } catch (InterruptedException e)  {

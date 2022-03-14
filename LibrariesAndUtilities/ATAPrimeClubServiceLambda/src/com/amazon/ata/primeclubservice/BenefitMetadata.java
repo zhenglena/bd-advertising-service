@@ -1,17 +1,7 @@
 package com.amazon.ata.primeclubservice;
 
-import com.amazon.coral.annotation.EnumValues;
-import com.amazon.coral.annotation.Shape;
-import com.amazon.coral.annotation.Wrapper;
-import com.amazon.coral.annotation.XmlName;
-import com.amazon.coral.annotation.XmlNamespace;
-import com.amazon.coral.annotation.*;
 import java.util.Arrays;
 
-@Shape
-@Wrapper(value={WrapperType.INPUT, WrapperType.OUTPUT})
-@XmlName(value="BenefitMetadata")
-@XmlNamespace(value="http://internal.amazon.com/coral/com.amazon.ata.primeclubservice/")
 public class BenefitMetadata implements Comparable<BenefitMetadata> {
 
   /**
@@ -65,7 +55,7 @@ public class BenefitMetadata implements Comparable<BenefitMetadata> {
 
   private String benefitLevel;
 
-@EnumValues(value={"MINI","STANDARD","PLUS","FRESH"})
+//@EnumValues(value={"MINI","STANDARD","PLUS","FRESH"})
   public String getBenefitLevel() {
     return this.benefitLevel;
   }

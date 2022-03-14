@@ -1,17 +1,7 @@
 package com.amazon.ata.primeclubservice;
 
-import com.amazon.coral.annotation.HttpLabel;
-import com.amazon.coral.annotation.Shape;
-import com.amazon.coral.annotation.Wrapper;
-import com.amazon.coral.annotation.XmlName;
-import com.amazon.coral.annotation.XmlNamespace;
-import com.amazon.coral.annotation.*;
 import java.util.Arrays;
 
-@Shape
-@Wrapper(value={WrapperType.INPUT, WrapperType.OUTPUT})
-@XmlName(value="GetPrimeBenefitsRequest")
-@XmlNamespace(value="http://internal.amazon.com/coral/com.amazon.ata.primeclubservice/")
 public class GetPrimeBenefitsRequest implements Comparable<GetPrimeBenefitsRequest> {
 
   /**
@@ -80,7 +70,6 @@ public class GetPrimeBenefitsRequest implements Comparable<GetPrimeBenefitsReque
   private String customerId;
   private String marketplaceId;
 
-@HttpLabel(value="customerId")
   public String getCustomerId() {
     return this.customerId;
   }
@@ -89,7 +78,6 @@ public class GetPrimeBenefitsRequest implements Comparable<GetPrimeBenefitsReque
     this.customerId = customerId;
   }
 
-@HttpLabel(value="marketplaceId")
   public String getMarketplaceId() {
     return this.marketplaceId;
   }

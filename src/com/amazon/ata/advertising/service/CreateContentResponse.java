@@ -30,6 +30,7 @@ public class CreateContentResponse {
 
     public CreateContentResponse(Builder builder) {
         this.targetingGroup = builder.targetingGroup;
+        this.advertisingContent = builder.advertisingContent;
     }
 
     public static Builder builder() {return new Builder();}
@@ -43,7 +44,7 @@ public class CreateContentResponse {
         }
 
         public Builder withAdvertisingContent(AdvertisingContent advertisingContentToUse) {
-            this.advertisingContent = advertisingContent;
+            this.advertisingContent = advertisingContentToUse;
             return this;
         }
 

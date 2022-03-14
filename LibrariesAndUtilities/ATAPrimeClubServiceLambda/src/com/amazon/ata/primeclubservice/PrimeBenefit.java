@@ -1,18 +1,7 @@
 package com.amazon.ata.primeclubservice;
 
-import com.amazon.coral.annotation.EnumValues;
-import com.amazon.coral.annotation.Required;
-import com.amazon.coral.annotation.Shape;
-import com.amazon.coral.annotation.Wrapper;
-import com.amazon.coral.annotation.XmlName;
-import com.amazon.coral.annotation.XmlNamespace;
-import com.amazon.coral.annotation.*;
 import java.util.Arrays;
 
-@Shape
-@Wrapper(value={WrapperType.INPUT, WrapperType.OUTPUT})
-@XmlName(value="PrimeBenefit")
-@XmlNamespace(value="http://internal.amazon.com/coral/com.amazon.ata.primeclubservice/")
 public class PrimeBenefit implements Comparable<PrimeBenefit> {
 
   /**
@@ -81,8 +70,8 @@ public class PrimeBenefit implements Comparable<PrimeBenefit> {
   private String benefitType;
   private BenefitMetadata benefitMetadata;
 
-@EnumValues(value={"MOM_LITE","MOM_DISCOUNT","FREE_TRIDENT_VOD","FREE_EXPEDITED_SHIPPING","DIM_SUM","AMZN4KIDS"})
-@Required()
+//@EnumValues(value={"MOM_LITE","MOM_DISCOUNT","FREE_TRIDENT_VOD","FREE_EXPEDITED_SHIPPING","DIM_SUM","AMZN4KIDS"})
+//@Required()
   public String getBenefitType() {
     return this.benefitType;
   }

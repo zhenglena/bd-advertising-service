@@ -1,18 +1,7 @@
 package com.amazon.ata.customerservice;
 
-import com.amazon.coral.annotation.HttpLabel;
-import com.amazon.coral.annotation.Required;
-import com.amazon.coral.annotation.Shape;
-import com.amazon.coral.annotation.Wrapper;
-import com.amazon.coral.annotation.XmlName;
-import com.amazon.coral.annotation.XmlNamespace;
-import com.amazon.coral.annotation.*;
 import java.util.Arrays;
 
-@Shape
-@XmlNamespace(value="http://internal.amazon.com/coral/com.amazon.ata.customerservice/")
-@XmlName(value="GetCustomerSpendCategoriesRequest")
-@Wrapper(value={WrapperType.INPUT, WrapperType.OUTPUT})
 public class GetCustomerSpendCategoriesRequest implements Comparable<GetCustomerSpendCategoriesRequest> {
 
   /**
@@ -81,8 +70,6 @@ public class GetCustomerSpendCategoriesRequest implements Comparable<GetCustomer
   private String marketplaceId;
   private String customerId;
 
-@HttpLabel(value="marketplaceId")
-@Required()
   public String getMarketplaceId() {
     return this.marketplaceId;
   }
@@ -91,8 +78,6 @@ public class GetCustomerSpendCategoriesRequest implements Comparable<GetCustomer
     this.marketplaceId = marketplaceId;
   }
 
-@HttpLabel(value="customerId")
-@Required()
   public String getCustomerId() {
     return this.customerId;
   }

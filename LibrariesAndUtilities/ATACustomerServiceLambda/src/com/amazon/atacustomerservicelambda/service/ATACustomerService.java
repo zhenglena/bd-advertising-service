@@ -22,7 +22,7 @@ public class ATACustomerService {
      * @return GetCustomerProfileResponse - Contains the profile for the customer.
      */
     public GetCustomerProfileResponse getCustomerProfile(GetCustomerProfileRequest request) {
-        return getCustomerProfileActivity.handleRequest(request);
+        return getCustomerProfileActivity.handleRequest(request, null);
     }
 
     /**
@@ -33,6 +33,6 @@ public class ATACustomerService {
      * @return GetCustomerSpendCategoriesResponse - Contains spend category information for the customer.
      */
     public GetCustomerSpendCategoriesResponse getCustomerSpendCategories(GetCustomerSpendCategoriesRequest request) {
-        return getCustomerSpendCategoriesActivity.handleRequest(request);
+        return getCustomerSpendCategoriesActivity.handleRequest(request, null);
     }
 }

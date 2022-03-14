@@ -6,14 +6,15 @@ import com.amazon.ata.customerservice.GetCustomerSpendCategoriesRequest;
 import com.amazon.ata.customerservice.GetCustomerSpendCategoriesResponse;
 import com.amazon.ata.customerservice.InvalidParameterException;
 import com.amazon.ata.customerservice.Spend;
-import com.amazon.bones.lambdarouter.LambdaActivityBase;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import java.util.Collections;
 import java.util.Map;
 import javax.inject.Inject;
 
-public class GetCustomerSpendCategoriesActivity extends LambdaActivityBase<GetCustomerSpendCategoriesRequest, GetCustomerSpendCategoriesResponse> {
+public class GetCustomerSpendCategoriesActivity implements RequestHandler<GetCustomerSpendCategoriesRequest, GetCustomerSpendCategoriesResponse> {
 
     @VisibleForTesting
     protected static final long SLEEP_MS = 200;
@@ -75,11 +76,11 @@ public class GetCustomerSpendCategoriesActivity extends LambdaActivityBase<GetCu
 
     @Inject
     public GetCustomerSpendCategoriesActivity() {
-        super(GetCustomerSpendCategoriesRequest.class);
+
     }
 
     @Override
-    public GetCustomerSpendCategoriesResponse handleRequest(GetCustomerSpendCategoriesRequest request) {
+    public GetCustomerSpendCategoriesResponse handleRequest(GetCustomerSpendCategoriesRequest request, Context context) {
 
         try {
             Thread.sleep(SLEEP_MS);

@@ -64,7 +64,7 @@ public class GetPrimeBenefitsActivity implements RequestHandler<GetPrimeBenefits
 
     @Inject
     public GetPrimeBenefitsActivity() {
-        super(GetPrimeBenefitsRequest.class);
+
     }
 
     /**
