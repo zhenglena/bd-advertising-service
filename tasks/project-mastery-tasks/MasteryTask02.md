@@ -24,17 +24,8 @@ Use an `ExecutorService` to concurrently call the predicates in each group.
 You may use a `Future` to store the results, but that's not required.
 You also don't have to use lambda expressions, but they will probably make your code more readable.
 
-Note: As with MT01, you'll see there is a constant boolean in the file that is currently set to `false`.
-This time it's named `IMPLEMENTED_CONCURRENCY`.
-Once you've made your changes, please also update that boolean flag to `true`,
-classes, otherwise your MT02 tests won't pass. :)
-
-Run the `tct-task2` workflow to verify that your implementation works,
-then submit a CR labeled with "[MT02]" to `Unit-5-Instructor-Reviewers`.
-
 **Exit Checklist:**
 
 * You've implemented your new functionality with unit tests
-* `rde wflow run tct-task2` passes
-* Your CR implementing your new functionality is approved by an ATA Instructor and pushed.
-* Mastery Task 2 TCTs are passing in your pipeline.
+* Running the gradle command `./gradlew -q clean :test --tests "com.tct.mastery.task2.*"` passes.
+* Running the gradle command `./gradlew -q clean :test --tests com.tct.introspection.MT2IntrospectionTests` passes.

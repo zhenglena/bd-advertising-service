@@ -1,7 +1,7 @@
 package com.amazon.ata.advertising.service.model.translator;
 
-import com.amazon.ata.advertising.service.AdvertisementClientException;
-import com.amazon.ata.advertising.service.TargetingPredicateType;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
+import com.amazon.ata.advertising.service.model.TargetingPredicateType;
 import com.amazon.ata.advertising.service.targeting.Comparison;
 import com.amazon.ata.advertising.service.targeting.predicate.AgeTargetingPredicate;
 import com.amazon.ata.advertising.service.targeting.predicate.CategorySpendFrequencyTargetingPredicate;
@@ -13,7 +13,6 @@ import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicate
 import com.amazon.ata.customerservice.AgeRange;
 import com.amazon.ata.customerservice.Category;
 import com.amazon.ata.primeclubservice.Benefit;
-import com.amazon.ataprimeclubservicelambda.activity.GetPrimeBenefitsActivity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,13 +32,13 @@ public class TargetingPredicateTranslatorTest {
     private static final String CATEGORY_KEY = "Category";
     private static final String COMPARISON_KEY = "Comparison";
 
-    private com.amazon.ata.advertising.service.TargetingPredicate.Builder coralShapeBuilder;
+    private com.amazon.ata.advertising.service.model.TargetingPredicate.Builder coralShapeBuilder;
     private Map<String, String> attributes;
 
     @BeforeEach
     public void setup() {
         attributes = new HashMap<>();
-        coralShapeBuilder = com.amazon.ata.advertising.service.TargetingPredicate.builder()
+        coralShapeBuilder = com.amazon.ata.advertising.service.model.TargetingPredicate.builder()
                 .withNegate(true)
                 .withAttributes(attributes);
     }
@@ -49,7 +48,7 @@ public class TargetingPredicateTranslatorTest {
         // GIVEN
         String ageRange = AgeRange.AGE_26_TO_30;
         attributes.put(AGE_KEY, ageRange);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.AGE)
                 .build();
 
@@ -66,7 +65,7 @@ public class TargetingPredicateTranslatorTest {
     @Test
     public void fromCoral_ageTypeMissingAttribute_throwsClientException() {
         // GIVEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.AGE)
                 .build();
 
@@ -79,7 +78,7 @@ public class TargetingPredicateTranslatorTest {
         // GIVEN
         String ageRange = "18 - 21";
         attributes.put(AGE_KEY, ageRange);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.AGE)
                 .build();
 
@@ -96,7 +95,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(VALUE_KEY, Integer.toString(value));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -119,7 +118,7 @@ public class TargetingPredicateTranslatorTest {
         int value = 10;
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(VALUE_KEY, Integer.toString(value));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -134,7 +133,7 @@ public class TargetingPredicateTranslatorTest {
         int value = 10;
         attributes.put(CATEGORY_KEY, category);
         attributes.put(VALUE_KEY, Integer.toString(value));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -149,7 +148,7 @@ public class TargetingPredicateTranslatorTest {
         String comparison = Comparison.GT.toString();
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -166,7 +165,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(VALUE_KEY, Integer.toString(value));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -183,7 +182,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(VALUE_KEY, Integer.toString(value));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -200,7 +199,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(VALUE_KEY, value);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_VALUE)
                 .build();
 
@@ -217,7 +216,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(PURCHASE_NUMBER_KEY, Integer.toString(purchaseNumber));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -240,7 +239,7 @@ public class TargetingPredicateTranslatorTest {
         int purchaseNumber = 10;
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(PURCHASE_NUMBER_KEY, Integer.toString(purchaseNumber));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -255,7 +254,7 @@ public class TargetingPredicateTranslatorTest {
         int purchaseNumber = 10;
         attributes.put(CATEGORY_KEY, category);
         attributes.put(PURCHASE_NUMBER_KEY, Integer.toString(purchaseNumber));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -270,7 +269,7 @@ public class TargetingPredicateTranslatorTest {
         String comparison = Comparison.GT.toString();
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -287,7 +286,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(PURCHASE_NUMBER_KEY, Integer.toString(purchaseNumber));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -304,7 +303,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(PURCHASE_NUMBER_KEY, Integer.toString(purchaseNumber));
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -321,7 +320,7 @@ public class TargetingPredicateTranslatorTest {
         attributes.put(CATEGORY_KEY, category);
         attributes.put(COMPARISON_KEY, comparison);
         attributes.put(PURCHASE_NUMBER_KEY, purchaseNumber);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.CATEGORY_SPEND_FREQUENCY)
                 .build();
 
@@ -332,7 +331,7 @@ public class TargetingPredicateTranslatorTest {
     @Test
     public void fromCoral_parentTypeWithAttributes_returnParentPredicate() {
         // GIVEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.PARENT)
                 .build();
 
@@ -347,7 +346,7 @@ public class TargetingPredicateTranslatorTest {
     @Test
     public void fromCoral_recognizedTypeWithAttributes_returnRecognizedPredicate() {
         // GIVEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.RECOGNIZED)
                 .build();
 
@@ -364,7 +363,7 @@ public class TargetingPredicateTranslatorTest {
         // GIVEN
         String primeBenefit = Benefit.FREE_EXPEDITED_SHIPPING;
         attributes.put(BENEFIT_KEY, primeBenefit);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.PRIME_BENEFIT)
                 .build();
 
@@ -381,7 +380,7 @@ public class TargetingPredicateTranslatorTest {
     @Test
     public void fromCoral_primeTypeMissingAttribute_throwsClientException() {
         // GIVEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.PRIME_BENEFIT)
                 .build();
 
@@ -394,7 +393,7 @@ public class TargetingPredicateTranslatorTest {
         // GIVEN
         String primeBenefit = "Free Shipping!";
         attributes.put(BENEFIT_KEY, primeBenefit);
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = coralShapeBuilder
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = coralShapeBuilder
                 .withTargetingPredicateType(TargetingPredicateType.PRIME_BENEFIT)
                 .build();
 
@@ -409,7 +408,7 @@ public class TargetingPredicateTranslatorTest {
         TargetingPredicate predicate = new AgeTargetingPredicate(ageRange, true);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
 
         // THEN
         assertTrue(coralShape.isNegate());
@@ -426,7 +425,7 @@ public class TargetingPredicateTranslatorTest {
         TargetingPredicate predicate = new CategorySpendFrequencyTargetingPredicate(category, comparison, purchaseNumber, false);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
 
         // THEN
         assertFalse(coralShape.isNegate());
@@ -445,7 +444,7 @@ public class TargetingPredicateTranslatorTest {
         TargetingPredicate predicate = new CategorySpendValueTargetingPredicate(category, comparison, value, true);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
 
         // THEN
         assertTrue(coralShape.isNegate());
@@ -462,7 +461,7 @@ public class TargetingPredicateTranslatorTest {
         TargetingPredicate predicate = new PrimeBenefitTargetingPredicate(primeBenefit, false);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
 
         // THEN
         assertFalse(coralShape.isNegate());
@@ -476,7 +475,7 @@ public class TargetingPredicateTranslatorTest {
         TargetingPredicate predicate = new ParentPredicate(true);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
 
         // THEN
         assertTrue(coralShape.isNegate());
@@ -489,7 +488,7 @@ public class TargetingPredicateTranslatorTest {
         TargetingPredicate predicate = new RecognizedTargetingPredicate(false);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
+        com.amazon.ata.advertising.service.model.TargetingPredicate coralShape = TargetingPredicateTranslator.toCoral(predicate);
 
         // THEN
         assertFalse(coralShape.isNegate());

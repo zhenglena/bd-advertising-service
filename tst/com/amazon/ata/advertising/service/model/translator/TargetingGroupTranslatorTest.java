@@ -1,6 +1,6 @@
 package com.amazon.ata.advertising.service.model.translator;
 
-import com.amazon.ata.advertising.service.TargetingPredicateType;
+import com.amazon.ata.advertising.service.model.TargetingPredicateType;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import com.amazon.ata.advertising.service.targeting.predicate.ParentPredicate;
 import com.amazon.ata.advertising.service.targeting.predicate.RecognizedTargetingPredicate;
@@ -25,22 +25,20 @@ class TargetingGroupTranslatorTest {
     public void toCoral_targetingGroupWithPredicates_returnsCoralShape() {
         // GIVEN
         List<TargetingPredicate> targetingPredicates = Arrays.asList(new RecognizedTargetingPredicate(),
-                                                                     new ParentPredicate(true));
+                new ParentPredicate(true));
         TargetingGroup group = new TargetingGroup(TARGETING_GROUP_ID, CONTENT_ID, CLICK_THROUGH_RATE, targetingPredicates);
         // WHEN
-        com.amazon.ata.advertising.service.TargetingGroup coralShape = TargetingGroupTranslator.toCoral(group);
+        com.amazon.ata.advertising.service.model.TargetingGroup coralShape = TargetingGroupTranslator.toCoral(group);
 
         // THEN
         assertCoralShape(coralShape);
 
-        com.amazon.ata.advertising.service.TargetingPredicate recognizedPredicate = com.amazon.ata.advertising.service.
-                TargetingPredicate.builder()
+        com.amazon.ata.advertising.service.model.TargetingPredicate recognizedPredicate = com.amazon.ata.advertising.service.model.TargetingPredicate.builder()
                 .withNegate(false)
                 .withAttributes(new HashMap<>())
                 .withTargetingPredicateType(TargetingPredicateType.RECOGNIZED)
                 .build();
-        com.amazon.ata.advertising.service.TargetingPredicate parentPredicate = com.amazon.ata.advertising.service.
-                TargetingPredicate.builder()
+        com.amazon.ata.advertising.service.model.TargetingPredicate parentPredicate = com.amazon.ata.advertising.service.model.TargetingPredicate.builder()
                 .withNegate(true)
                 .withAttributes(new HashMap<>())
                 .withTargetingPredicateType(TargetingPredicateType.PARENT)
@@ -59,14 +57,14 @@ class TargetingGroupTranslatorTest {
         TargetingGroup group = new TargetingGroup(TARGETING_GROUP_ID, CONTENT_ID, CLICK_THROUGH_RATE, targetingPredicates);
 
         // WHEN
-        com.amazon.ata.advertising.service.TargetingGroup coralShape = TargetingGroupTranslator.toCoral(group);
+        com.amazon.ata.advertising.service.model.TargetingGroup coralShape = TargetingGroupTranslator.toCoral(group);
 
         // THEN
         assertCoralShape(coralShape);
         assertEquals(new ArrayList<>(), coralShape.getTargetingPredicates());
     }
 
-    private void assertCoralShape(com.amazon.ata.advertising.service.TargetingGroup coralShape) {
+    private void assertCoralShape(com.amazon.ata.advertising.service.model.TargetingGroup coralShape) {
         assertEquals(TARGETING_GROUP_ID, coralShape.getTargetingGroupId());
         assertEquals(CONTENT_ID, coralShape.getContentId());
         assertEquals(CLICK_THROUGH_RATE, coralShape.getClickThroughRate());

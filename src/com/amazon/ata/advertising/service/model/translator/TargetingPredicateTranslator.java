@@ -1,7 +1,7 @@
 package com.amazon.ata.advertising.service.model.translator;
 
-import com.amazon.ata.advertising.service.AdvertisementClientException;
-import com.amazon.ata.advertising.service.TargetingPredicateType;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
+import com.amazon.ata.advertising.service.model.TargetingPredicateType;
 import com.amazon.ata.advertising.service.targeting.Comparison;
 import com.amazon.ata.advertising.service.targeting.predicate.AgeTargetingPredicate;
 import com.amazon.ata.advertising.service.targeting.predicate.CategorySpendFrequencyTargetingPredicate;
@@ -38,7 +38,7 @@ public class TargetingPredicateTranslator {
      * @param predicate The coral shape
      * @return The internal representation
      */
-    public static TargetingPredicate fromCoral(com.amazon.ata.advertising.service.TargetingPredicate predicate) {
+    public static TargetingPredicate fromCoral(com.amazon.ata.advertising.service.model.TargetingPredicate predicate) {
         TargetingPredicate targetingPredicate;
         switch (predicate.getTargetingPredicateType()) {
             case AGE:
@@ -68,7 +68,7 @@ public class TargetingPredicateTranslator {
     }
 
     private static AgeTargetingPredicate toAgeTargetingPredicate(
-            com.amazon.ata.advertising.service.TargetingPredicate predicate
+            com.amazon.ata.advertising.service.model.TargetingPredicate predicate
     ) {
         String targetedAgeRange = predicate.getAttributes().get(AGE_KEY);
         if (!Arrays.asList(AgeRange.values()).contains(targetedAgeRange)) {
@@ -79,7 +79,7 @@ public class TargetingPredicateTranslator {
     }
 
     private static CategorySpendFrequencyTargetingPredicate toCategorySpendFrequencyTargetingPredicate(
-            com.amazon.ata.advertising.service.TargetingPredicate predicate
+            com.amazon.ata.advertising.service.model.TargetingPredicate predicate
     ) {
         String predicateName = "CategorySpendFrequencyTargetingPredicate";
 
@@ -92,7 +92,7 @@ public class TargetingPredicateTranslator {
     }
 
     private static CategorySpendValueTargetingPredicate toCategorySpendValueTargetingPredicate(
-            com.amazon.ata.advertising.service.TargetingPredicate predicate
+            com.amazon.ata.advertising.service.model.TargetingPredicate predicate
     ) {
         String predicateName = "CategorySpendValueTargetingPredicate";
 
@@ -103,12 +103,12 @@ public class TargetingPredicateTranslator {
         return new CategorySpendValueTargetingPredicate(targetedCategory, comparison, value, predicate.isNegate());
     }
 
-    private static ParentPredicate toParentPredicate(com.amazon.ata.advertising.service.TargetingPredicate predicate) {
+    private static ParentPredicate toParentPredicate(com.amazon.ata.advertising.service.model.TargetingPredicate predicate) {
         return new ParentPredicate(predicate.isNegate());
     }
 
     private static PrimeBenefitTargetingPredicate toPrimeBenefitTargetingPredicate(
-            com.amazon.ata.advertising.service.TargetingPredicate predicate
+            com.amazon.ata.advertising.service.model.TargetingPredicate predicate
     ) {
         String benefit = predicate.getAttributes().get(BENEFIT_KEY);
         if (!Arrays.asList(Benefit.values()).contains(benefit)) {
@@ -120,7 +120,7 @@ public class TargetingPredicateTranslator {
     }
 
     private static RecognizedTargetingPredicate toRecognizedTargetingPredicate(
-            com.amazon.ata.advertising.service.TargetingPredicate predicate
+            com.amazon.ata.advertising.service.model.TargetingPredicate predicate
     ) {
         return new RecognizedTargetingPredicate(predicate.isNegate());
     }
@@ -163,8 +163,8 @@ public class TargetingPredicateTranslator {
      * @param targetingPredicate The internal representation
      * @return The coral shape
      */
-    public static com.amazon.ata.advertising.service.TargetingPredicate toCoral(TargetingPredicate targetingPredicate) {
-        return com.amazon.ata.advertising.service.TargetingPredicate.builder()
+    public static com.amazon.ata.advertising.service.model.TargetingPredicate toCoral(TargetingPredicate targetingPredicate) {
+        return com.amazon.ata.advertising.service.model.TargetingPredicate.builder()
                 .withNegate(targetingPredicate.isInverse())
                 .withTargetingPredicateType(toType(targetingPredicate))
                 .withAttributes(toAttributes(targetingPredicate))

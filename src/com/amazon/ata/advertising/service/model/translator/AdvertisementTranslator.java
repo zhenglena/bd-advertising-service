@@ -1,6 +1,6 @@
 package com.amazon.ata.advertising.service.model.translator;
 
-import com.amazon.ata.advertising.service.Advertisement;
+import com.amazon.ata.advertising.service.model.Advertisement;
 import com.amazon.ata.advertising.service.model.GeneratedAdvertisement;
 
 /**

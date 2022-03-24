@@ -1,6 +1,6 @@
 package com.amazon.ata.advertising.service.dao;
 
-import com.amazon.ata.advertising.service.AdvertisementClientException;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.util.EncryptionUtil;
 

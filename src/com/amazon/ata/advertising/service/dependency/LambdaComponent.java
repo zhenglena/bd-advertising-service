@@ -3,6 +3,7 @@ package com.amazon.ata.advertising.service.dependency;
 //import com.amazon.coral.dagger.annotations.CoralComponent;
 //import com.amazon.coral.service.lambda.LambdaEndpoint;
 
+import com.amazon.ata.advertising.service.activity.*;
 import dagger.Component;
 import dagger.Module;
 
@@ -31,4 +32,16 @@ public interface LambdaComponent {
      * @return a TargetingPredicateInjector
      */
     TargetingPredicateInjector getTargetingPredicateInjector();
+
+    GenerateAdActivity provideGenerateAdActivity();
+
+    AddTargetingGroupActivity provideAddTargetingGroupActivity();
+
+    CreateContentActivity provideCreateContentActivity();
+
+    DeleteContentActivity provideDeleteContentActivity();
+
+    UpdateClickThroughRateActivity provideUpdateClickThroughRateActivity();
+
+    UpdateContentActivity provideUpdateContentActivity();
 }

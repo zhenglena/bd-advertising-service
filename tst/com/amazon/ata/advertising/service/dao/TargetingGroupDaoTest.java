@@ -1,7 +1,7 @@
 package com.amazon.ata.advertising.service.dao;
 
-import com.amazon.ata.advertising.service.AdvertisementClientException;
-import com.amazon.ata.advertising.service.AdvertisementServiceException;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementServiceException;
 import com.amazon.ata.advertising.service.dependency.TargetingPredicateInjector;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import com.amazon.ata.advertising.service.targeting.predicate.ParentPredicate;

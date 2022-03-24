@@ -1,6 +1,6 @@
 package com.amazon.ata.advertising.service.model;
 
-import com.amazon.ata.advertising.service.AdvertisingContent;
+import com.amazon.ata.advertising.service.model.AdvertisingContent;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;

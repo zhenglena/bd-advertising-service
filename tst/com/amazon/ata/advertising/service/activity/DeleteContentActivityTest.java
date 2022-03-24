@@ -1,8 +1,8 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.AdvertisementClientException;
-import com.amazon.ata.advertising.service.DeleteContentRequest;
-import com.amazon.ata.advertising.service.DeleteContentResponse;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
+import com.amazon.ata.advertising.service.model.requests.DeleteContentRequest;
+import com.amazon.ata.advertising.service.model.responses.DeleteContentResponse;
 import com.amazon.ata.advertising.service.dao.ContentDao;
 import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 

@@ -8,7 +8,7 @@
 /annotation-generated-src
 /annotation-generated-tst
 /SAMToolkit.devenv
-/configuration/stack-exec
+/configurations/stack-exec
 *.iml
 
 # Ignore Gradle project-specific cache directory

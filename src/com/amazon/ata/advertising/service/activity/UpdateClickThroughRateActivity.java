@@ -1,8 +1,8 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.UpdateClickThroughRateRequest;
-import com.amazon.ata.advertising.service.UpdateClickThroughRateResponse;
 import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
+import com.amazon.ata.advertising.service.model.requests.UpdateClickThroughRateRequest;
+import com.amazon.ata.advertising.service.model.responses.UpdateClickThroughRateResponse;
 import com.amazon.ata.advertising.service.model.translator.TargetingGroupTranslator;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 

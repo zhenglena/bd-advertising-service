@@ -2,7 +2,6 @@ package com.amazon.ata.advertising.service.targeting.predicate;
 
 import com.amazon.ata.advertising.service.model.RequestContext;
 
-import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateResult;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

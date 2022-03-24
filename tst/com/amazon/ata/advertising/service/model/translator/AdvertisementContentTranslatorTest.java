@@ -1,6 +1,6 @@
 package com.amazon.ata.advertising.service.model.translator;
 
-import com.amazon.ata.advertising.service.AdvertisingContent;
+import com.amazon.ata.advertising.service.model.AdvertisingContent;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import org.junit.jupiter.api.Test;
 

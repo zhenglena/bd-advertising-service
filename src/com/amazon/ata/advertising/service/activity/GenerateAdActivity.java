@@ -1,7 +1,7 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.GenerateAdvertisementRequest;
-import com.amazon.ata.advertising.service.GenerateAdvertisementResponse;
+import com.amazon.ata.advertising.service.model.requests.GenerateAdvertisementRequest;
+import com.amazon.ata.advertising.service.model.responses.GenerateAdvertisementResponse;
 import com.amazon.ata.advertising.service.businesslogic.AdvertisementSelectionLogic;
 import com.amazon.ata.advertising.service.model.EmptyGeneratedAdvertisement;
 import com.amazon.ata.advertising.service.model.GeneratedAdvertisement;

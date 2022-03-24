@@ -4,19 +4,14 @@ import com.amazon.ata.advertising.service.dao.ReadableDao;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.model.EmptyGeneratedAdvertisement;
 import com.amazon.ata.advertising.service.model.GeneratedAdvertisement;
-import com.amazon.ata.advertising.service.model.RequestContext;
-import com.amazon.ata.advertising.service.targeting.TargetingEvaluator;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 import javax.inject.Inject;
 
 /**
@@ -28,6 +23,7 @@ public class AdvertisementSelectionLogic {
 
     private final ReadableDao<String, List<AdvertisementContent>> contentDao;
     private final ReadableDao<String, List<TargetingGroup>> targetingGroupDao;
+    private Random random = new Random();
 
     /**
      * Constructor for AdvertisementSelectionLogic.
@@ -39,6 +35,14 @@ public class AdvertisementSelectionLogic {
                                        ReadableDao<String, List<TargetingGroup>> targetingGroupDao) {
         this.contentDao = contentDao;
         this.targetingGroupDao = targetingGroupDao;
+    }
+
+    /**
+     * Setter for Random class.
+     * @param random generates random number used to select advertisements.
+     */
+    public void setRandom(Random random) {
+        this.random = random;
     }
 
     /**
@@ -56,27 +60,13 @@ public class AdvertisementSelectionLogic {
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
         } else {
-            final RequestContext requestContext = new RequestContext(customerId, marketplaceId);
-            final TargetingEvaluator evaluator = new TargetingEvaluator(requestContext);
-            final Comparator<TargetingGroup> sortByCTR = Comparator.comparingDouble(TargetingGroup::getClickThroughRate)
-                .reversed();
-            final SortedMap<TargetingGroup, AdvertisementContent> eligibleAdvertisements = new TreeMap<>(sortByCTR);
             final List<AdvertisementContent> contents = contentDao.get(marketplaceId);
 
-            for (AdvertisementContent content : contents) {
-                List<TargetingGroup> targetingGroups = targetingGroupDao.get(content.getContentId());
-                targetingGroups.stream()
-                    .sorted(sortByCTR)
-                    .filter(targetingGroup -> evaluator.evaluate(targetingGroup).isTrue())
-                    .findFirst()
-                    .ifPresent(targetingGroup -> eligibleAdvertisements.put(targetingGroup, content));
+            if (CollectionUtils.isNotEmpty(contents)) {
+                AdvertisementContent randomAdvertisementContent = contents.get(random.nextInt(contents.size()));
+                generatedAdvertisement = new GeneratedAdvertisement(randomAdvertisementContent);
             }
 
-            if (MapUtils.isNotEmpty(eligibleAdvertisements)) {
-                final TargetingGroup highestCTRGroup = eligibleAdvertisements.firstKey();
-                final AdvertisementContent contentToRender = eligibleAdvertisements.get(highestCTRGroup);
-                generatedAdvertisement = new GeneratedAdvertisement(contentToRender);
-            }
         }
 
         return generatedAdvertisement;

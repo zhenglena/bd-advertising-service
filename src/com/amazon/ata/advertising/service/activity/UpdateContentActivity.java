@@ -1,10 +1,10 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.AdvertisingContent;
-import com.amazon.ata.advertising.service.UpdateContentRequest;
-import com.amazon.ata.advertising.service.UpdateContentResponse;
 import com.amazon.ata.advertising.service.dao.ContentDao;
 import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
+import com.amazon.ata.advertising.service.model.AdvertisingContent;
+import com.amazon.ata.advertising.service.model.requests.UpdateContentRequest;
+import com.amazon.ata.advertising.service.model.responses.UpdateContentResponse;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.model.translator.AdvertisementContentTranslator;
 import com.amazon.ata.advertising.service.model.translator.TargetingGroupTranslator;
@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+
 
 public class UpdateContentActivity {
     private static final Logger LOG = LogManager.getLogger(UpdateContentActivity.class);
@@ -50,7 +51,7 @@ public class UpdateContentActivity {
             AdvertisementContentTranslator.fromCoral(requestedContent));
 
         List<TargetingGroup> targetingGroups = targetingGroupDao.get(updatedContent.getContentId());
-        List<com.amazon.ata.advertising.service.TargetingGroup> coralTargetingGroup = targetingGroups.stream()
+        List<com.amazon.ata.advertising.service.model.TargetingGroup> coralTargetingGroup = targetingGroups.stream()
                 .map(TargetingGroupTranslator::toCoral)
                 .collect(Collectors.toList());
 

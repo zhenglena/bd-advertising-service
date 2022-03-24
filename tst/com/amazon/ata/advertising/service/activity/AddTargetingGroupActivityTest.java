@@ -1,10 +1,10 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.AddTargetingGroupRequest;
-import com.amazon.ata.advertising.service.AddTargetingGroupResponse;
-import com.amazon.ata.advertising.service.TargetingGroup;
-import com.amazon.ata.advertising.service.TargetingPredicate;
-import com.amazon.ata.advertising.service.TargetingPredicateType;
+import com.amazon.ata.advertising.service.model.requests.AddTargetingGroupRequest;
+import com.amazon.ata.advertising.service.model.responses.AddTargetingGroupResponse;
+import com.amazon.ata.advertising.service.model.TargetingGroup;
+import com.amazon.ata.advertising.service.model.TargetingPredicate;
+import com.amazon.ata.advertising.service.model.TargetingPredicateType;
 import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 import com.amazon.ata.advertising.service.targeting.predicate.AgeTargetingPredicate;
 import com.amazon.ata.customerservice.AgeRange;
@@ -61,7 +61,6 @@ public class AddTargetingGroupActivityTest {
         // THEN
         assertTargetingGroup(response.getTargetingGroup());
         assertTrue(response.getTargetingGroup().getTargetingPredicates().isEmpty());
-
     }
 
     @Test

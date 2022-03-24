@@ -1,9 +1,9 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.CreateContentRequest;
-import com.amazon.ata.advertising.service.CreateContentResponse;
 import com.amazon.ata.advertising.service.dao.ContentDao;
 import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
+import com.amazon.ata.advertising.service.model.requests.CreateContentRequest;
+import com.amazon.ata.advertising.service.model.responses.CreateContentResponse;
 
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.model.translator.AdvertisementContentTranslator;
@@ -51,7 +51,7 @@ public class CreateContentActivity {
     public CreateContentResponse createContent(CreateContentRequest request) {
         String marketplaceId = request.getMarketplaceId();
         String requestedContent = request.getContent();
-        List<com.amazon.ata.advertising.service.TargetingPredicate> requestedTargetingPredicates =
+        List<com.amazon.ata.advertising.service.model.TargetingPredicate> requestedTargetingPredicates =
             request.getTargetingPredicates();
         LOG.info(String.format("Creating content in marketplace: %s. Content: %s. Targeting predicates: %s",
             marketplaceId, requestedContent, requestedTargetingPredicates));

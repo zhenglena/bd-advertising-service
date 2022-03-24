@@ -1,7 +1,5 @@
 package com.amazon.ata.advertising.service.util;
 
-//import amazon.security.AmzUid;
-
 public class EncryptionUtil {
     private EncryptionUtil() {}
 
@@ -14,7 +12,7 @@ public class EncryptionUtil {
         String encryptedMarketplace;
         try {
             long decryptedMarketplace = Long.parseLong(marketplaceId);
-            encryptedMarketplace = marketplaceId;//AmzUid.encryptCustomerID(decryptedMarketplace);
+            encryptedMarketplace = marketplaceId; //AmzUid.encryptCustomerID(decryptedMarketplace); Replace with encryptor
         } catch (NumberFormatException e) {
             encryptedMarketplace = marketplaceId;
         }

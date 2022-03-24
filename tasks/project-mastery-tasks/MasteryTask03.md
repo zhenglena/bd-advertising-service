@@ -1,7 +1,5 @@
 ## Mastery Task 3 - Ads don't grow on trees (or do they?)
 
-**Reviewer: Project Buddy**
-
 In Mastery Task 1, we updated `AdvertisementSelectionLogic` to randomly show an advertisement from only the ads that a 
 customer is eligible for. We did this to gather some initial data on how often customers in certain targeting groups 
 would click the ads, and we have updated the targeting group data (using the `UpdateTargetingGroup` operation) with the 
@@ -23,17 +21,10 @@ with a 0.15 click through rate and another that includes customers that have bou
 through rate. For a customer that has bought both technical books AND logic books, we should use the targeting group 
 with the 0.30 click through rate when sorting through the ads, since it has the higher click through rate.
 
-Run `rde wflow run tct-task3` to validate your changes and submit a CR to your project buddy. The title of your commit
-and CR must begin with `[MT03]`. Once the CR is approved, push this code to your pipeline.
-
-Warning: The integration test for MT3 needs to set-up a fair amount of data. So this workflow may take a while to run.
-(20+ Minutes)
-
 **Exit Checklist:**
 
 * You've updated `AdvertisementSelectionLogic` to use a `TreeMap` to help select an eligible ad with the highest click 
 through rate.
 * You've added/updated unit tests for your changes
-* `rde wflow run tct-task3` passes
-* Your CR has been approved by your Project Buddy and pushed
-* Mastery Task 3 TCTs are passing in your pipeline
+* Running the gradle command `./gradlew -q clean :test --tests "com.tct.mastery.task3.*"` passes.
+

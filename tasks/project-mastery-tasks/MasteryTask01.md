@@ -2,8 +2,6 @@
 
 ###Milestone 1: Update TargetingEvaluator and AddTargetingGroupActivity
 
-**Reviewer: Unit-5-Instructor-Reviewers**
-
 While looking over the current service code, you see some instances where we're using a for loop to iterate and process 
 elements in a collection. To help reduce the boilerplate iterative code and make the logic easier to follow, you decide 
 to update the logic to use streams instead! 
@@ -26,17 +24,7 @@ of advertising content.
 
 We encourage you to take a look at the Stream [Javadoc](https://docs.oracle.com/javase/8/docs/api/?java/util/stream/Stream.html) to see what available methods can help implement the logic.
 
-Note: For both of these classes that you'll be modifying, you'll see there is a constant boolean called `IMPLEMENTED_STREAMS` 
-that is currently set to `false`. Once you've made your changes, please also update that boolean flag to `true` in both 
-classes, otherwise your MT01 tests won't pass. :)
-
-Once you can run `rde wflow run tct-task1-loops` and it passes, create a commit and submit a CR to `Unit-5-Instructor-Reviewers`. 
-The title of your commit must begin with `[MT01][Loops]`.
-
-
 ###Milestone 2: Update AdvertisementSelectionLogic
-
-**Reviewer: Project Buddy**
 
 If you look at our service's `AdvertisementSelectionLogic`, you'll see that we're currently retrieving all
 advertisements for a marketplace and randomly showing one of those advertisements to customers. To help increase our
@@ -54,9 +42,6 @@ If there are no eligible ads for the customer, then return an `EmptyGeneratedAdv
 rendered on the retail website, we don't want to return null or throw exceptions if there are no eligible ads for the 
 customer. Instead we return an empty string so that the front-end can handle rendering gracefully. 
 
-Once you can run `rde wflow run tct-task1-logic` and it passes, create a commit and submit a CR to your project buddy. 
-The title of your commit must begin with `[MT01][Logic]`.
-
 **Exit Checklist:**
 
 * You've updated `AdvertisementSelectionLogic`'s `selectAdvertisement` method so that it randomly selects an ad that the 
@@ -66,6 +51,6 @@ customer is eligible for
 * You've set both `AdvertisementSelectionLogic` and `TargetingEvaluator`‘s `IMPLEMENTED_STREAM` boolean flag to `true`.
 * You've updated `AddTargetingGroupActivity`'s `addTargetingGroup` method to use a stream when building the `Map` of
 spend categories to return.
-* You've added/updated unit tests for your changes.
-* Your changes have been approved by your Project Buddy or Instructors and pushed.
-* Mastery Task 1 TCTs are passing in your pipeline.
+* Running the gradle command `./gradlew -q clean :test --tests com.tct.mastery.task1.MasteryTaskOneLogicTests` passes.
+* Running the gradle command `./gradlew -q clean :test --tests com.tct.introspection.MT1IntrospectionTests` passes.
+
