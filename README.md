@@ -1,4 +1,4 @@
-#  Unit 5 Project: ATA Advertising Service
+#  Unit 7 Project: ATA Advertising Service
 
 ## Preliminaries: The More Things Change
 
@@ -14,17 +14,14 @@ There will be some increasing complexity as we work with ExecutorServices for th
 You'll have your fellow participants in the same situation as you, so remember to collaborate: rely on each other for 
 assistance, and share your own knowledge.
 
-## Unit 5 Project Progress and Tracking
+## Unit 7 Project Progress and Tracking
 
 ### Doneness checklist
 
 You're done with the project when: 
 
 * You can access your service through `curl`
-* Your CRs have passed review and all steps in your pipeline (including CR verification and TCTs) succeed
-* You've submitted the Project Reflection response in Canvas
-* You've completed the Participant End-of-Unit Survey (a short survey to help us improve the project and the project 
-process for next time! Optional, but highly encouraged)
+* You have successfully passed all tests in CodeGrade
 
 ## The Problem: ATA Advertising
 
@@ -37,9 +34,7 @@ before continuing below.
 
 ### Accessing operations via curl
 
-Coral requires some HTTP headers that aren't supplied by default. The Coral Explorer automatically adds those headers
-to its requests, but the framework we use in this project doesn't allow us to use the Explorer. When you use `curl`,
-you'll need to supply a `Content-Encoding` and `Content-Type` that Coral recognizes, along with an
+When you use `curl`, you'll need to supply a `Content-Encoding` and `Content-Type` that Coral recognizes, along with an
 `Amz-Target` header indicating which API you want to call.
 
 You can reference the templates and examples below when you're testing your code.
@@ -213,9 +208,4 @@ curl \
 ### [Mastery Task 2: Concurrent Tasks](tasks/project-mastery-tasks/MasteryTask02.md)
 ### [Mastery Task 3: Ads don't grow on trees (or do they?)](tasks/project-mastery-tasks/MasteryTask03.md)
 
-
-## Project Reflection
-
-Think over the entire project, from the introduction to the final mastery task completion. Answer three or more 
-questions in the [Canvas Project Reflection Quiz](https://mlu.instructure.com/courses/605/quizzes/2052).
 
