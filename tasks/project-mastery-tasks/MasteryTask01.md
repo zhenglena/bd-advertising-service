@@ -1,6 +1,6 @@
 ## Mastery Task 1 - Filter out the noise
 
-###Milestone 1: Update TargetingEvaluator and AddTargetingGroupActivity
+### Milestone 1: Update TargetingEvaluator and AddTargetingGroupActivity
 
 While looking over the current service code, you see some instances where we're using a for loop to iterate and process 
 elements in a collection. To help reduce the boilerplate iterative code and make the logic easier to follow, you decide 
@@ -24,7 +24,7 @@ of advertising content.
 
 We encourage you to take a look at the Stream [Javadoc](https://docs.oracle.com/javase/8/docs/api/?java/util/stream/Stream.html) to see what available methods can help implement the logic.
 
-###Milestone 2: Update AdvertisementSelectionLogic
+### Milestone 2: Update AdvertisementSelectionLogic
 
 If you look at our service's `AdvertisementSelectionLogic`, you'll see that we're currently retrieving all
 advertisements for a marketplace and randomly showing one of those advertisements to customers. To help increase our
