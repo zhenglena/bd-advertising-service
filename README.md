@@ -23,6 +23,17 @@ You're done with the project when:
 * You can access your service through `curl`
 * You have successfully passed all tests in CodeGrade
 
+### cloudformation commands
+
+You'll want to run the following commands to setup your DynamoDB tables for this project:
+
+```
+aws cloudformation create-stack --region us-west-2 --stack-name advertisingservice-createtables --template-body file://configurations/cloudFormation/ddb_tables.template.yml --capabilities CAPABILITY_IAM
+aws dynamodb batch-write-item --request-items file://configurations/cloudFormation/content_table.json
+aws dynamodb batch-write-item --request-items file://configurations/cloudFormation/targeting_group_table.json
+aws dynamodb batch-write-item --request-items file://configurations/cloudFormation/targeting_group_table2.json
+```
+
 ## The Problem: ATA Advertising
 
 ATA's AdvertisingService serves advertisements for ATA. These advertisements show up on the retail website and use 
