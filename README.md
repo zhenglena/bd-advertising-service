@@ -195,13 +195,6 @@ curl \
 -d '{"contentId":"ba9568e2-b239-48bc-a167-8a2797f7935e"}'
 ```
 
-
-## Project Preparedness Tasks
-
-### [Project Preparedness Task 1: Use the Source, Again, and Again](tasks/project-preparedness-tasks/PreparednessTask01.md)
-### [Project Preparedness Task 2: Hello, Project Buddy](tasks/project-preparedness-tasks/PreparednessTask02.md)
-
-
 ## Project Mastery Tasks
 
 ### [Mastery Task 1: Filter out the noise](tasks/project-mastery-tasks/MasteryTask01.md)
