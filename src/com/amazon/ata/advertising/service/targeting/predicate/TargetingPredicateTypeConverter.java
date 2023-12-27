@@ -46,7 +46,7 @@ public class TargetingPredicateTypeConverter implements DynamoDBTypeConverter<St
 
     @Override
     public List<TargetingPredicate> unconvert(String value) {
-        LambdaComponent component = null;//DaggerLambdaComponent.create();
+        LambdaComponent component = null; //TODO: DaggerLambdaComponent.create();
         TargetingPredicateInjector injector = component.getTargetingPredicateInjector();
         try {
             final List<TargetingPredicate> predicates = MAPPER.readValue(value,
