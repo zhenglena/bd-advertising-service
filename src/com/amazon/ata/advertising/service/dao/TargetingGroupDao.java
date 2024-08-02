@@ -8,7 +8,9 @@ import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicate
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
