@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.annotation.Target;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -92,14 +93,12 @@ public class AdvertisementSelectionLogic {
     private List<AdvertisementContent> findValidContents (List<AdvertisementContent> contents, TargetingEvaluator evaluator) {
         List<AdvertisementContent> returnList = new ArrayList<>();
         for (AdvertisementContent content : contents) {
-            List<TargetingGroup> groups = targetingGroupDao.get(content.getContentId())
+            Optional<TargetingGroup> targetingGroup = targetingGroupDao.get(content.getContentId())
                     .stream()
                     .sorted(Comparator.comparing(TargetingGroup::getClickThroughRate).reversed()) //sort by click-thru rate
                     .filter(group -> evaluator.evaluate(group).isTrue()) //filtered out groups that aren't "true"
-                    .collect(Collectors.toList()); //this should be a list sorted by highest click-thru rate
-            if (!groups.isEmpty()) {
-                TargetingGroup selectedGroup = groups.get(0); //get the highest click-thru rate
-                content.setContentId(selectedGroup.getContentId());
+                    .findFirst(); //the highest click-rate targeting group
+            if (targetingGroup.isPresent()) {
                 returnList.add(content);
             }
         }
