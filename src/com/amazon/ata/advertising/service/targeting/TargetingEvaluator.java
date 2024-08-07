@@ -6,13 +6,17 @@ import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicate
 
 import java.sql.SQLOutput;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Evaluates TargetingPredicates for a given RequestContext.
  */
 public class TargetingEvaluator {
     public static final boolean IMPLEMENTED_STREAMS = true;
-    public static final boolean IMPLEMENTED_CONCURRENCY = false;
+    public static final boolean IMPLEMENTED_CONCURRENCY = true;
     private final RequestContext requestContext;
 
     /**
@@ -30,10 +34,17 @@ public class TargetingEvaluator {
      * @return TRUE if all the TargetingPredicates evaluate to TRUE against the RequestContext, FALSE otherwise.
      */
     public TargetingPredicateResult evaluate(TargetingGroup targetingGroup) {
+        ExecutorService executor = Executors.newCachedThreadPool();
         //MT1
         boolean allTruePredicates = targetingGroup.getTargetingPredicates()
                 .stream()
-                .map(predicate -> predicate.evaluate(requestContext))
+                .map(predicate -> {
+                    try {
+                         return executor.submit(() -> predicate.evaluate(requestContext)).get();
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
                 .allMatch(TargetingPredicateResult::isTrue);
         //end
         return allTruePredicates ? TargetingPredicateResult.TRUE :
