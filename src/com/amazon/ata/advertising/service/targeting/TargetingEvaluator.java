@@ -39,14 +39,17 @@ public class TargetingEvaluator {
         boolean allTruePredicates = targetingGroup.getTargetingPredicates()
                 .stream()
                 .map(predicate -> {
+                    //MT2
                     try {
                          return executor.submit(() -> predicate.evaluate(requestContext)).get();
                     } catch (ExecutionException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+                    //end
                 })
                 .allMatch(TargetingPredicateResult::isTrue);
         //end
+        executor.shutdown();
         return allTruePredicates ? TargetingPredicateResult.TRUE :
                                    TargetingPredicateResult.FALSE;
     }
