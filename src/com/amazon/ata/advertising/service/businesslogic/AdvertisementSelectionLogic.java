@@ -8,15 +8,11 @@ import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.advertising.service.targeting.TargetingEvaluator;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 
-import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateResult;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.annotation.Target;
 import java.util.*;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 /**
@@ -66,17 +62,27 @@ public class AdvertisementSelectionLogic {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
             return generatedAdvertisement;
         }
-        //MT1
+        //MT1 && MT3
+        Map<Double, AdvertisementContent> eligibleAdsByClickThruRate = new TreeMap<>(Comparator.reverseOrder());
         RequestContext context = new RequestContext(customerId, marketplaceId);
         TargetingEvaluator evaluator = new TargetingEvaluator(context);
 
         List<AdvertisementContent> validContents = findValidContents(contentDao.get(marketplaceId), evaluator);
-        //end
 
-        if (CollectionUtils.isNotEmpty(validContents)) {
-            AdvertisementContent randomAdvertisementContent = validContents.get(random.nextInt(validContents.size()));
-            return new GeneratedAdvertisement(randomAdvertisementContent);
+        for (AdvertisementContent content : validContents) {
+            Optional<Double> highest = targetingGroupDao.get(content.getContentId()).stream()
+                    .map(TargetingGroup::getClickThroughRate)
+                    .max(Double::compareTo);
+            highest.ifPresent(aDouble -> eligibleAdsByClickThruRate.put(aDouble, content));
         }
+
+        if (!eligibleAdsByClickThruRate.isEmpty()) {
+            Optional<Double> highest = eligibleAdsByClickThruRate.keySet().stream().max(Double::compareTo);
+            AdvertisementContent content = eligibleAdsByClickThruRate.get(highest.get());
+
+            return new GeneratedAdvertisement(content);
+        }
+        //end
         return generatedAdvertisement;
     }
 
